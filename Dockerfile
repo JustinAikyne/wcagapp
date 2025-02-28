@@ -1,13 +1,3 @@
-# FROM maven:3-jdk-8-alpine as builder
-# WORKDIR /usr/src/app
-# COPY . /usr/src/app
-# RUN mvn package
-# FROM openjdk:8-jre-alpine
-# COPY --from=builder /usr/src/app/target/*.jar /app.jar
-# EXPOSE 8080
-# ENTRYPOINT ["java"]
-# CMD ["-jar", "/app.jar"]
-
 # Use the AWS Lambda base image for Java 21
 FROM public.ecr.aws/lambda/java:21
 
@@ -38,5 +28,8 @@ ENV CHROMEDRIVER_PATH="/opt/bin/chromedriver"
 # Copy application JAR file
 COPY target/accessibilityCheckerService-0.0.1-SNAPSHOT.jar application.jar
 
-# Set the Lambda function entry point
-# ENTRYPOINT ["java", "-cp", "application.jar", "com.brahos.accessibilitychecker.LambdaHandler"]
+# Expose port 8080 for Spring Boot
+EXPOSE 8080
+
+# Run Spring Boot application
+ENTRYPOINT ["java", "-jar", "application.jar"]

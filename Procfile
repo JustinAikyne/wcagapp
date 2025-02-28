@@ -1,1 +1,1 @@
-web: java -jar target/AccessibilityCheckerApplication.jar
+web: java -jar target/accessibilityCheckerService-0.0.1-SNAPSHOT.jar
